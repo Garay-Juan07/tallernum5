@@ -11,7 +11,7 @@ body {
   background-position: center;
 }
 
-.calendar-container {
+.calendarioo {
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 12px;
@@ -22,20 +22,20 @@ body {
   margin-top: 50px;
 }
 
-.calendar-header {
+.calendario1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.calendar-header h2 {
+.calendario1 h2 {
   margin: 0;
   font-size: 2em;
   color: #333;
 }
 
-.calendar-header button {
+.calendario1 button {
   background: #0db408;
   color: #ffffff;
   border: none;
@@ -45,17 +45,17 @@ body {
   font-size: 1.5em;
 }
 
-.calendar-header button:hover {
+.calendario1 button:hover {
   background: #22b61d;
 }
 
-.calendar-days {
+.calendario2 {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
 }
 
-.calendar-days div {
+.calendario2 div {
   padding: 15px;
   background: #e0f2f1;
   border-radius: 8px;
@@ -64,12 +64,12 @@ body {
   text-align: center;
 }
 
-.calendar-days div.today {
+.calendario2 div.today {
   background: #0db408;
   color: #ffffff;
 }
 
-.calendar-days div.event {
+.calendario2 div.event {
   background: #4caf50;
   color: #ffffff;
 }

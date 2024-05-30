@@ -1,53 +1,53 @@
 
-const calendarTitle = document.getElementById('calendar-title');
-const calendarBody = document.getElementById('calendar-body');
-const eventModal = document.getElementById('event-modal');
-const eventDate = document.getElementById('event-date');
-const eventTime = document.getElementById('event-time');
-const eventDescription = document.getElementById('event-description');
-const eventParticipants = document.getElementById('event-participants');
-const modalTitle = document.getElementById('modal-title');
+const titulodelcalendario = document.getElementById('calendar-title');
+const cuerpodelcalendario = document.getElementById('calendar-body');
+const eventomodal = document.getElementById('event-modal');
+const fecha = document.getElementById('event-date');
+const tiempo = document.getElementById('event-time');
+const descripcion = document.getElementById('event-description');
+const participantes = document.getElementById('event-participants');
+const titulo = document.getElementById('modal-title');
 
 let currentDate = new Date();
 let currentView = 'monthly';
 let events = JSON.parse(localStorage.getItem('calendarEvents')) || {};
 let selectedDate;
 
-function populateEventTimeOptions() {
+function opcionesdetiempo() {
     for (let hour = 0; hour < 24; hour++) {
         for (let minute of ["00", "30"]) {
             const option = document.createElement('option');
             option.value = `${hour.toString().padStart(2, '0')}:${minute}`;
             option.text = `${hour.toString().padStart(2, '0')}:${minute}`;
-            eventTime.appendChild(option);
+            tiempo.appendChild(option);
         }
     }
 }
 
-populateEventTimeOptions();
+opcionesdetiempo();
 
-function updateCalendar() {
-    calendarBody.innerHTML = '';
+function actualizarcalendario() {
+    cuerpodelcalendario.innerHTML = '';
     if (currentView === 'monthly') {
-        updateMonthlyView();
+        actualizacionmes();
     } else if (currentView === 'yearly') {
-        updateYearlyView();
+        actualizaranio();
     } else if (currentView === 'daily') {
-        updateDailyView();
+        actualizardia();
     }
 }
 
-function updateMonthlyView() {
+function actualizacionmes() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDay = new Date(year, month, 1).getDay();
 
-    calendarTitle.innerText = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
+    titulodelcalendario.innerText = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
 
     for (let i = 0; i < firstDay; i++) {
         const emptyDiv = document.createElement('div');
-        calendarBody.appendChild(emptyDiv);
+        cuerpodelcalendario.appendChild(emptyDiv);
     }
 
     for (let day = 1; day <= daysInMonth; day++) {
@@ -61,15 +61,15 @@ function updateMonthlyView() {
         if (day === currentDate.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
             dayElement.classList.add('today');
         }
-        dayElement.onclick = () => openModal(dateKey);
-        calendarBody.appendChild(dayElement);
+        dayElement.onclick = () => abrir(dateKey);
+        cuerpodelcalendario.appendChild(dayElement);
     }
 }
 
-function updateYearlyView() {
+function actualizaranio() {
     const year = currentDate.getFullYear();
-    calendarTitle.innerText = `${year}`;
-    calendarBody.style.gridTemplateColumns = 'repeat(3, 1fr)';
+    titulodelcalendario.innerText = `${year}`;
+    cuerpodelcalendario.style.gridTemplateColumns = 'repeat(3, 1fr)';
 
     for (let month = 0; month < 12; month++) {
         const monthElement = document.createElement('div');
@@ -82,19 +82,19 @@ function updateYearlyView() {
         monthElement.onclick = () => {
             currentDate.setMonth(month);
             currentView = 'monthly';
-            updateCalendar();
+            actualizarcalendario();
         };
-        calendarBody.appendChild(monthElement);
+        cuerpodelcalendario.appendChild(monthElement);
     }
 }
 
-function updateDailyView() {
+function actualizardia() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const day = currentDate.getDate();
     const dateKey = `${year}-${month + 1}-${day}`;
-    calendarTitle.innerText = `${day} de ${currentDate.toLocaleString('default', { month: 'long' })}, ${year}`;
-    calendarBody.style.gridTemplateColumns = '1fr';
+    titulodelcalendario.innerText = `${day} de ${currentDate.toLocaleString('default', { month: 'long' })}, ${year}`;
+    cuerpodelcalendario.style.gridTemplateColumns = '1fr';
 
     const dayElement = document.createElement('div');
     dayElement.innerText = `Hoy es ${currentDate.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
@@ -110,10 +110,10 @@ function updateDailyView() {
     eventElement.style.marginTop = '10px';
 
     dayElement.appendChild(eventElement);
-    calendarBody.appendChild(dayElement);
+    cuerpodelcalendario.appendChild(dayElement);
 }
 
-function prev() {
+function previo() {
     if (currentView === 'monthly') {
         currentDate.setMonth(currentDate.getMonth() - 1);
     } else if (currentView === 'yearly') {
@@ -121,10 +121,10 @@ function prev() {
     } else if (currentView === 'daily') {
         currentDate.setDate(currentDate.getDate() - 1);
     }
-    updateCalendar();
+    actualizarcalendario();
 }
 
-function next() {
+function siguiente() {
     if (currentView === 'monthly') {
         currentDate.setMonth(currentDate.getMonth() + 1);
     } else if (currentView === 'yearly') {
@@ -132,66 +132,66 @@ function next() {
     } else if (currentView === 'daily') {
         currentDate.setDate(currentDate.getDate() + 1);
     }
-    updateCalendar();
+    actualizarcalendario();
 }
 
-function showMonthlyView() {
+function mes() {
     currentView = 'monthly';
-    calendarBody.style.gridTemplateColumns = 'repeat(7, 1fr)';
-    updateCalendar();
+    cuerpodelcalendario.style.gridTemplateColumns = 'repeat(7, 1fr)';
+    actualizarcalendario();
 }
 
-function showYearlyView() {
+function anio() {
     currentView = 'yearly';
-    calendarBody.style.gridTemplateColumns = 'repeat(3, 1fr)';
-    updateCalendar();
+    cuerpodelcalendario.style.gridTemplateColumns = 'repeat(3, 1fr)';
+    actualizarcalendario();
 }
 
-function showDailyView() {
+function dia() {
     currentView = 'daily';
-    calendarBody.style.gridTemplateColumns = '1fr';
-    updateCalendar();
+    cuerpodelcalendario.style.gridTemplateColumns = '1fr';
+    actualizarcalendario();
 }
 
-function openModal(dateKey) {
+function abrir(dateKey) {
     selectedDate = dateKey;
-    modalTitle.innerText = `Gestionar Evento para ${new Date(dateKey).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+    titulo.innerText = `Gestionar Evento para ${new Date(dateKey).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}`;
     if (events[dateKey]) {
-        eventDate.value = dateKey;
-        eventTime.value = events[dateKey].time;
-        eventDescription.value = events[dateKey].description;
-        eventParticipants.value = events[dateKey].participants;
+        fecha.value = dateKey;
+        tiempo.value = events[dateKey].time;
+        descripcion.value = events[dateKey].description;
+        participantes.value = events[dateKey].participants;
     } else {
-        eventDate.value = dateKey;
-        eventTime.value = "00:00";
-        eventDescription.value = '';
-        eventParticipants.value = '';
+        fecha.value = dateKey;
+        tiempo.value = "00:00";
+        descripcion.value = '';
+        participantes.value = '';
     }
-    eventModal.style.display = 'flex';
+    eventomodal.style.display = 'flex';
 }
 
-function closeModal() {
-    eventModal.style.display = 'none';
+function cancelar() {
+    eventomodal.style.display = 'none';
 }
 
-function saveEvent() {
+function guardar() {
     const event = {
         date: selectedDate,
-        time: eventTime.value,
-        description: eventDescription.value.trim(),
-        participants: eventParticipants.value.trim()
+        time: tiempo.value,
+        description: descripcion.value.trim(),
+        participants: participantes.value.trim()
     };
     events[selectedDate] = event;
     localStorage.setItem('calendarEvents', JSON.stringify(events));
-    closeModal();
-    updateCalendar();
+    cancelar();
+    actualizarcalendario();
 }
 
-function deleteEvent() {
+function eliminar() {
     delete events[selectedDate];
     localStorage.setItem('calendarEvents', JSON.stringify(events));
-    closeModal();
-    updateCalendar();
+    cancelar();
+    actualizarcalendario();
 }
 
-updateCalendar();
+actualizarcalendario();

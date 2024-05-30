@@ -10,19 +10,19 @@
 
 <body>
   
-    <div class="calendar-container">
+    <div class="calendarioo">
         <div class="view-selectors">
-            <button onclick="showMonthlyView()">Mensual</button>
-            <button onclick="showYearlyView()">Anual</button>
-            <button onclick="showDailyView()">Diario</button>
+            <button onclick="mes()">Mensual</button>
+            <button onclick="anio()">Anual</button>
+            <button onclick="dia()">Diario</button>
             <img src="recursos/logocecar.png" alt="logo" width="150px">
         </div>
-        <div class="calendar-header">
-            <button onclick="prev()">&#8249;</button>
+        <div class="calendario1">
+            <button onclick="previo()">&#8249;</button>
             <h2 id="calendar-title"></h2>
-            <button onclick="next()">&#8250;</button>
+            <button onclick="siguiente()">&#8250;</button>
         </div>
-        <div id="calendar-body" class="calendar-days"></div>
+        <div id="calendar-body" class="calendario2"></div>
     </div>
 
     <div id="event-modal" class="modal">
@@ -33,9 +33,9 @@
             <input type="date" id="event-date">
             <textarea id="event-participants" placeholder="Descripcion del recuerdo"></textarea>
             <div class="modal-buttons">
-                <button onclick="saveEvent()">Guardar</button>
-                <button onclick="deleteEvent()">Eliminar</button>
-                <button onclick="closeModal()">Cancelar</button>
+                <button onclick="guardar()">Guardar</button>
+                <button onclick="eliminar()">Eliminar</button>
+                <button onclick="cancelar()">Cancelar</button>
             </div>
         </div>
     </div>
