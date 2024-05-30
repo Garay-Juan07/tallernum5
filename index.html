@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+    <link rel="stylesheet" href="../taller/css/estilo.css">
+</head>
+
+<body>
+  
+    <div class="calendar-container">
+        <div class="view-selectors">
+            <button onclick="showMonthlyView()">Mensual</button>
+            <button onclick="showYearlyView()">Anual</button>
+            <button onclick="showDailyView()">Diario</button>
+            <img src="../taller/recursos/logocecar.png" alt="logo" width="150px">
+        </div>
+        <div class="calendar-header">
+            <button onclick="prev()">&#8249;</button>
+            <h2 id="calendar-title"></h2>
+            <button onclick="next()">&#8250;</button>
+        </div>
+        <div id="calendar-body" class="calendar-days"></div>
+    </div>
+
+    <div id="event-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Añadir recuerdo o evento</h3>
+            <input type="text" id="event-description" placeholder="Nombre del recuerdo">
+            <input type="time" id="event-time">
+            <input type="date" id="event-date">
+            <textarea id="event-participants" placeholder="Descripcion del recuerdo"></textarea>
+            <div class="modal-buttons">
+                <button onclick="saveEvent()">Guardar</button>
+                <button onclick="deleteEvent()">Eliminar</button>
+                <button onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <script src="../taller/js/javascript.js"></script>
+</body>
+
+</html>
+
